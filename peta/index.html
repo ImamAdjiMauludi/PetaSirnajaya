@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<head>
+	<base target="_top">
+	<meta charset="utf-8">
+	
+	
+	<title>Peta Beta</title>
+	
+	<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+
+
+<style>
+html, body {
+			height: 100%;
+			margin: 0;
+		}
+		.leaflet-container {
+			height: 500px;
+			width: 960px;
+			max-width: 100%;
+			max-height: 100%;
+		}
+</style>
+</head>
+ 
+<body>
+	<div id="map"></div>
+
+<script>
+	///	OSM
+		var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		maxZoom: 19,
+		attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'})
+
+	/// Gmaps
+		var googleStreets = L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',{
+    	maxZoom: 20,
+    	subdomains:['mt0','mt1','mt2','mt3']
+ 		});
+
+	/// Ikon
+		var IkonSekolah = L.icon({
+	    iconUrl: 'https://img.icons8.com/ios-glyphs/30/null/school-building.png',
+	    iconSize:     [30, 30], // size of the icon
+	    shadowSize:   [50, 64], // size of the shadow
+	    iconAnchor:   [0, 0], // point of the icon which will correspond to marker's location
+	    shadowAnchor: [4, 62],  // the same for the shadow
+	    popupAnchor:  [0, 0] // point from which the popup should open relative to the iconAnchor
+		});
+ 
+
+	/// Variable titik
+		///sekolah
+		var SDN02 = L.marker([-6.5957806185841745, 107.02160452135395],{icon: IkonSekolah, title: 'SDN 02 Sirnajaya'}).bindPopup('<h1>SDN 02 Sirnajaya</h1><p>Ini sekolah</p>');
+		var SDN03 = L.marker([-6.607574207434945, 107.0017429054419],{icon: IkonSekolah, title: 'SDN 03 Sirnajaya'}).bindPopup('<h1>SDN 03 Sirnajaya</h1><p>Ini sekolah</p>');
+		var MIHidayatul = L.marker([-6.598728019939144, 107.0153254214311],{icon: IkonSekolah, title: 'MI Hidayatul Falah'}).bindPopup('<h1>MI Hidayatul Falah</h1><p>Ini sekolah, nanti bisa ditambah kontak dll, fotonya cuman contoh y</ p><img src="./foto sekolah.JPG" width="300" height="200">');
+
+		///Grup
+		var sekolah = L.layerGroup([SDN02, SDN03, MIHidayatul]);
+
+		///Pemerintahan
+		var KantorDesa = L.marker([-6.594993400817185, 107.02282923578586]).bindPopup('<h1>Kantor Desa</h1><embed type="text/html" src="./landmark/kantor desa.html"  width="300" height="200"><div style="width:300px;height:200px;overflow:auto;"><p align="justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p></div>');
+		///Grup
+		var pemerintahan = L.layerGroup([KantorDesa]);
+
+		///Wisata
+		var RawaGede = L.marker([-6.628181522335603, 106.99264705174474]).bindPopup('rawa gede');
+		var CurugCidulang = L.marker([-6.631960791096603, 106.99000164972476]).bindPopup('Curug Cidulang')
+
+		///Grup
+		var wisata = L.layerGroup([RawaGede,CurugCidulang]);
+
+	/// Kontrol Layer
+		var map = L.map('map', {
+		center: [-6.618730, 106.991914],
+		zoom: 12,
+		layers: [osm,googleStreets]
+		});
+
+		var baseMaps = {
+		'OSM': osm,
+		'Gmaps' : googleStreets
+		};
+
+	var layerControl = L.control.layers(baseMaps).addTo(map);
+
+	/// Layer Control Titik Tambahan
+	layerControl.addOverlay(sekolah, 'Sekolah');
+	layerControl.addOverlay(pemerintahan, 'Pemerintahan');
+	layerControl.addOverlay(wisata, 'Wisata');
+
+</script>
+</body>
+</html>
