@@ -9,7 +9,14 @@
 	<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin=""/>
+
+    <link rel="stylesheet" href="css/leaflet.extra-markers.min.css"> ///1
+
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+
+    <script src="js/leaflet.extra-markers.min.js"></script>///2
+
+     <script defer src="https://use.fontawesome.com/releases/v5.12.0/js/all.js"></script>///3
 
 
 <style>
@@ -42,15 +49,45 @@ html, body {
  		});
 
 	/// Ikon
-		var IkonSekolah = L.icon({
-	    iconUrl: 'https://img.icons8.com/ios-glyphs/30/null/school-building.png',
-	    iconSize:     [30, 30], // size of the icon
-	    shadowSize:   [50, 64], // size of the shadow
-	    iconAnchor:   [0, 0], // point of the icon which will correspond to marker's location
-	    shadowAnchor: [4, 62],  // the same for the shadow
-	    popupAnchor:  [0, 0] // point from which the popup should open relative to the iconAnchor
-		});
- 
+		  // Tempat Wisata
+		  var redMarker = L.ExtraMarkers.icon({
+		    icon: 'fa-coffee',
+		    markerColor: 'red',
+		    shape: 'square',
+		    prefix: 'fa'
+		  });
+ 		
+ 		// Sekolah
+ 		var IkonSekolah = L.ExtraMarkers.icon({
+		    icon: 'fa-solid fa-school',
+		    markerColor: 'blue',
+		    shape: 'square',
+		    prefix: 'fa'
+		  });
+
+ 		// Pemerintahan
+ 		var IkonPemerintahan = L.ExtraMarkers.icon({
+		    icon: 'fa-solid fa-landmark',
+		    markerColor: 'red',
+		    shape: 'square',
+		    prefix: 'fa'
+		  });
+
+ 		// Wisata
+ 		var IkonWisata = L.ExtraMarkers.icon({
+		    icon: 'fa-solid fa-tree',
+		    markerColor: 'green',
+		    shape: 'penta',
+		    prefix: 'fa'
+		  });
+
+		// UMKM
+		var IkonUMKM = L.ExtraMarkers.icon({
+			icon: 'fa-solid fa-landmark',
+			markerColor: 'red',
+			shape: 'square',
+			prefix: 'fa'
+			});
 
 	/// Variable titik
 		///sekolah
@@ -62,13 +99,13 @@ html, body {
 		var sekolah = L.layerGroup([SDN02, SDN03, MIHidayatul]);
 
 		///Pemerintahan
-		var KantorDesa = L.marker([-6.594993400817185, 107.02282923578586]).bindPopup('<h1>Kantor Desa</h1><embed type="text/html" src="./landmark/kantor desa.html"  width="300" height="200"><div style="width:300px;height:200px;overflow:auto;"><p align="justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p></div>');
+		var KantorDesa = L.marker([-6.594993400817185, 107.02282923578586],{icon:IkonPemerintahan}).bindPopup('<h1>Kantor Desa</h1><embed type="text/html" src="./landmark/kantor desa.html"  width="300" height="200"><div style="width:300px;height:200px;overflow:auto;"><p align="justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit es se cillum dolore eu fugiat nulla pariatur.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p></div>');
 		///Grup
 		var pemerintahan = L.layerGroup([KantorDesa]);
 
 		///Wisata
-		var RawaGede = L.marker([-6.628181522335603, 106.99264705174474]).bindPopup('rawa gede');
-		var CurugCidulang = L.marker([-6.631960791096603, 106.99000164972476]).bindPopup('Curug Cidulang')
+		var RawaGede = L.marker([-6.628181522335603, 106.99264705174474],{icon:redMarker}).bindPopup('rawa gede');
+		var CurugCidulang = L.marker([-6.631960791096603, 106.99000164972476],{icon:IkonWisata}).bindPopup('Curug Cidulang')
 
 		///Grup
 		var wisata = L.layerGroup([RawaGede,CurugCidulang]);
